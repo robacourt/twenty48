@@ -1,9 +1,15 @@
 defmodule Twenty48.Row do
   @space :_
+  @obstacle :x
 
   def space, do: @space
+  def obstacle, do: @obstacle
 
   def left(row), do: left(row, 0, [])
+
+  defp left([@obstacle | tiles], spaces, acc) do
+    left(tiles, 0, [@obstacle | add_spaces(acc, spaces)])
+  end
 
   defp left([@space | tiles], spaces, acc), do: left(tiles, spaces + 1, acc)
   defp left([tile, @space | tiles], spaces, acc), do: left([tile | tiles], spaces + 1, acc)
