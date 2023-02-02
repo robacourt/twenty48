@@ -3,7 +3,7 @@ defmodule Twenty48.Board do
   @space Row.space()
 
   def move(board, :left) do
-    Enum.map(board, &Row.left/1)
+    Enum.map(board, &Row.move_left/1)
   end
 
   def move(board, :right) do
