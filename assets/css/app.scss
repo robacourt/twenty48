@@ -1,0 +1,90 @@
+$tile-size: 80px;
+$small-spacing: 3px;
+$large-spacing: 10px;
+$border-radius: 10px;
+$grey: hsl(0, 0%, 80%);
+$primary-colour: hsl(215, 45%, 50%);
+$secondary-colour: hsl(255, 55%, 50%);
+
+body {
+  font-family:'Helvetica', 'Arial', sans-serif;
+}
+
+.game {
+  display: inline-block;
+}
+
+.board-container {
+  display: inline-block;
+  position: relative;
+}
+
+.board {
+  display: inline-block;
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+%tile {
+  width: $tile-size;
+  height: $tile-size;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  line-height: $tile-size;
+  margin: $small-spacing;
+  border-radius: $border-radius;
+}
+
+%number-tile {
+  @extend %tile;
+  font-size: xx-large;
+  font-weight: 600;
+}
+
+.tile {
+  &--empty {
+    @extend %tile;
+    background-color: $grey;
+  }
+
+  &--1 { @extend %number-tile; background-color: hsl(195, 40%, 50%); }
+  &--2 { @extend %number-tile; background-color: hsl(215, 45%, 50%); }
+  &--4 { @extend %number-tile; background-color: hsl(235, 50%, 50%); }
+  &--8 { @extend %number-tile; background-color: hsl(255, 55%, 50%); }
+  &--16 { @extend %number-tile; background-color: hsl(275, 60%, 50%); }
+  &--32 { @extend %number-tile; background-color: hsl(295, 65%, 50%); }
+  &--64 { @extend %number-tile; background-color: hsl(315, 65%, 50%); }
+  &--128 { @extend %number-tile; background-color: hsl(335, 70%, 50%); }
+  &--256 { @extend %number-tile; background-color: hsl(355, 75%, 50%); }
+  &--512 { @extend %number-tile; background-color: hsl(15, 80%, 50%); }
+  &--1024 { @extend %number-tile; background-color: hsl(35, 85%, 50%); }
+  &--2048 { @extend %number-tile; background-color: hsl(55, 90%, 50%); color: black; }
+}
+
+.status {
+   &--hide {
+    display: flex;
+    position: absolute;
+  }
+
+  &--show {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: $border-radius;
+    background-color: hsla(0, 0%, 90%, 0.9);
+  }
+
+  &__text {
+    font-size: xx-large;
+    font-weight: 600;
+    text-align: center;
+  }
+}

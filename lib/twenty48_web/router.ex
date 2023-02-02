@@ -17,11 +17,6 @@ defmodule Twenty48Web.Router do
   scope "/", Twenty48Web do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", GameLive, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", Twenty48Web do
-  #   pipe_through :api
-  # end
 end
