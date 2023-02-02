@@ -16,3 +16,5 @@ The game logic is in 3 modules:
   * Row - with logic on how to slide and merge number tiles 
 
 To tests for each of these modules document the functionality of them
+
+![Game example](https://github.com/robacourt/twenty48/blob/main/example-game.png?raw=true)
