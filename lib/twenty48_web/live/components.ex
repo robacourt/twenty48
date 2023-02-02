@@ -1,6 +1,22 @@
 defmodule Twenty48Web.Components do
   use Phoenix.Component
 
+  def select(assigns) do
+    ~H"""
+    <div>
+      <label for={@name}><%= @label %></label>
+
+      <select name={@name} id={@name}>
+        <%= for item <- @items do %>
+          <option value={ item } selected={item==@value}>
+            <%= item %>
+          </option>
+        <% end %>
+      </select>
+    </div>
+    """
+  end
+
   def status(%{value: :playing} = assigns) do
     ~H"""
     <div class="status--hide" />
@@ -52,6 +68,14 @@ defmodule Twenty48Web.Components do
   defp tile(%{value: :_} = assigns) do
     ~H"""
     <div class="tile--empty">
+    </div>
+    """
+  end
+
+  defp tile(%{value: :x} = assigns) do
+    ~H"""
+    <div class="tile--obstacle">
+      #
     </div>
     """
   end

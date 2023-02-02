@@ -15,11 +15,19 @@ defmodule Twenty48Web.GameLive do
 
   def render(assigns) do
     ~H"""
-    <div class="game" phx-window-keyup="keyup">
+    <div class="game" phx-window-keyup="key-up">
+      <form phx-submit="new-game">
+        <Components.select name="width" label="Width" items={1..6} value={@width} />
+        <Components.select name="height" label="Height" items={1..6} value={@height} />
+        <Components.select name="obstacles" label="Obstacles" items={0..4} value={@obstacles} />
+
+        <button>New Game</button>
+      </form>
       <div class="board-container">
         <Components.status value={@game.status} />
         <Components.board value={@game.board} />
       </div>
+      <p>Use your arrow keys to slide the tiles</p>
     </div>
     """
   end
@@ -33,11 +41,24 @@ defmodule Twenty48Web.GameLive do
     {:ok, socket}
   end
 
-  def handle_event("keyup", %{"key" => key}, socket) when key in @arrow_keys do
+  def handle_event("new-game", params, socket) do
+    socket =
+      socket
+      |> assign(
+        width: String.to_integer(params["width"]),
+        height: String.to_integer(params["height"]),
+        obstacles: String.to_integer(params["obstacles"])
+      )
+      |> new_game()
+
+    {:noreply, socket}
+  end
+
+  def handle_event("key-up", %{"key" => key}, socket) when key in @arrow_keys do
     {:noreply, assign(socket, game: Game.slide(socket.assigns.game, @directions[key]))}
   end
 
-  def handle_event("keyup", %{"key" => _key}, socket) do
+  def handle_event("key-up", %{"key" => _key}, socket) do
     {:noreply, socket}
   end
 
