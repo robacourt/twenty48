@@ -1,16 +1,18 @@
 # Twenty48
 
-An implimentation of the game 2048 by Rob A'Court as part of a tech assessment by V7.
+An implimentation of the game 2048 by Rob A'Court as part of a tech assessment by V7
 
 ## To run
 
-In your console, run:
-
   * Ensure you have Elixir installed (version 1.12 or above)
-  * Run `./start`
-  * Visit [`localhost:4000`](http://localhost:4000) from your browser
+  * In your console run `./start`
+  * Visit [`http://localhost:4000`](http://localhost:4000) from your browser
 
 ## Documention
 
-To understand how the game logic works, the best place to start is the game tests: test/twenty48/game_test.exs
+The game logic is in 3 modules:
+  * Game - which consists of a board and a status (playing, won or lost)
+  * Board - a list of rows, with functions to add pieces and to slide the tiles in any direction
+  * Row - with logic on how to slide and merge number tiles 
 
+To tests for each of these modules document the functionality of them
