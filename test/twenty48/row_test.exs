@@ -14,6 +14,7 @@ defmodule Twenty48.RowTest do
       assert Row.move_left([1, 1]) == [2, :_]
       assert Row.move_left([2, 2]) == [4, :_]
       assert Row.move_left([2, 2, 2]) == [4, 2, :_]
+      assert Row.move_left([2, 2, 2, 2]) == [4, 4, :_, :_]
       assert Row.move_left([8, 4, 4]) == [8, 8, :_]
       assert Row.move_left([2, 1, 2]) == [2, 1, 2]
       assert Row.move_left([2, :_, 2, :_, 1]) == [4, 1, :_, :_, :_]
