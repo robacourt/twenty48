@@ -1,18 +1,16 @@
 # Twenty48
 
-To start your Phoenix server:
+An implimentation of the game 2048 by Rob A'Court as part of a tech assessment by V7.
 
-  * Install dependencies with `mix deps.get`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+## To run
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+In your console, run:
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+  * Ensure you have Elixir installed (version 1.12 or above)
+  * Run `./start`
+  * Visit [`localhost:4000`](http://localhost:4000) from your browser
 
-## Learn more
+## Documention
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+To understand how the game logic works, the best place to start is the game tests: test/twenty48/game_test.exs
+
