@@ -41,52 +41,52 @@ defmodule Twenty48.GameTest do
     end
   end
 
-  describe "move" do
-    test "moves the pieces the specified direction then adds a 1 in a random free position" do
+  describe "slide" do
+    test "slides the pieces the specified direction then adds a 1 in a random free position" do
       seed_random()
       game = %{board: [[:_, :_, 2]], status: :playing}
-      assert Game.move(game, :left).board == [[2, 1, :_]]
-      assert Game.move(game, :left).board == [[2, :_, 1]]
+      assert Game.slide(game, :left).board == [[2, 1, :_]]
+      assert Game.slide(game, :left).board == [[2, :_, 1]]
     end
 
     test "combines pieces with the same number" do
       game = %{board: [[16, 16]], status: :playing}
-      assert Game.move(game, :left).board == [[32, 1]]
+      assert Game.slide(game, :left).board == [[32, 1]]
     end
 
     test "gives a status of playing if there is space for the new piece" do
       game = %{board: [[:_, 2]], status: :playing}
-      assert Game.move(game, :left).status == :playing
+      assert Game.slide(game, :left).status == :playing
     end
 
     test "gives a status of playing if the pieces combine creating space for the new piece" do
       game = %{board: [[16, 16]], status: :playing}
-      assert Game.move(game, :left).status == :playing
+      assert Game.slide(game, :left).status == :playing
     end
 
     test "gives a status of lost if the board is full" do
       game = %{board: [[4, 2]], status: :playing}
-      assert Game.move(game, :left).status == :lost
+      assert Game.slide(game, :left).status == :lost
     end
 
     test "gives a status of won if the pieces combine to make a 2048" do
       game = %{board: [[1024, 1024]], status: :playing}
-      assert Game.move(game, :left).status == :won
+      assert Game.slide(game, :left).status == :won
     end
 
     test "does not add a 1 if the pieces combine to make a 2048" do
       game = %{board: [[1024, 1024]], status: :playing}
-      assert Game.move(game, :left).board == [[2048, :_]]
+      assert Game.slide(game, :left).board == [[2048, :_]]
     end
 
     test "does nothing if status is won" do
       game = %{board: [[:_, 2048]], status: :won}
-      assert Game.move(game, :left) == game
+      assert Game.slide(game, :left) == game
     end
 
     test "does nothing if status is lost" do
       game = %{board: [[16, 16]], status: :lost}
-      assert Game.move(game, :left) == game
+      assert Game.slide(game, :left) == game
     end
   end
 

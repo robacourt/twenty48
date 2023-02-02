@@ -77,7 +77,7 @@ defmodule Twenty48Web.GameLive do
   end
 
   def handle_event("keyup", %{"key" => key}, socket) when key in @arrow_keys do
-    {:noreply, assign(socket, game: Game.move(socket.assigns.game, @directions[key]))}
+    {:noreply, assign(socket, game: Game.slide(socket.assigns.game, @directions[key]))}
   end
 
   def handle_event("keyup", %{"key" => _key}, socket) do

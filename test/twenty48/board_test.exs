@@ -2,11 +2,11 @@ defmodule Twenty48.BoardTest do
   use ExUnit.Case, async: true
   alias Twenty48.Board
 
-  test "move" do
-    assert Board.move([[:_, 1], [:_, 2]], :left) == [[1, :_], [2, :_]]
-    assert Board.move([[1, :_], [2, :_]], :right) == [[:_, 1], [:_, 2]]
-    assert Board.move([[1, 2], [:_, :_]], :down) == [[:_, :_], [1, 2]]
-    assert Board.move([[:_, :_], [1, 2]], :up) == [[1, 2], [:_, :_]]
+  test "slide" do
+    assert Board.slide([[:_, 1], [:_, 2]], :left) == [[1, :_], [2, :_]]
+    assert Board.slide([[1, :_], [2, :_]], :right) == [[:_, 1], [:_, 2]]
+    assert Board.slide([[1, 2], [:_, :_]], :down) == [[:_, :_], [1, 2]]
+    assert Board.slide([[:_, :_], [1, 2]], :up) == [[1, 2], [:_, :_]]
   end
 
   test "free_spaces" do

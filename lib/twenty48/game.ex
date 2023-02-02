@@ -7,14 +7,14 @@ defmodule Twenty48.Game do
     |> add_piece(2)
   end
 
-  def move(%{board: board, status: :playing} = game, direction) do
+  def slide(%{board: board, status: :playing} = game, direction) do
     game
-    |> Map.put(:board, Board.move(board, direction))
+    |> Map.put(:board, Board.slide(board, direction))
     |> check_win()
     |> add_piece(1)
   end
 
-  def move(game, _), do: game
+  def slide(game, _), do: game
 
   defp check_win(%{board: board} = game) do
     if board |> List.flatten() |> Enum.any?(&(&1 == @winning_number)) do

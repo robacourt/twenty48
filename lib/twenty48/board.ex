@@ -2,28 +2,28 @@ defmodule Twenty48.Board do
   alias Twenty48.Row
   @space Row.space()
 
-  def move(board, :left) do
-    Enum.map(board, &Row.move_left/1)
+  def slide(board, :left) do
+    Enum.map(board, &Row.slide_left/1)
   end
 
-  def move(board, :right) do
+  def slide(board, :right) do
     board
     |> reverse_columns
-    |> move(:left)
+    |> slide(:left)
     |> reverse_columns
   end
 
-  def move(board, :down) do
+  def slide(board, :down) do
     board
     |> rotate_clockwise
-    |> move(:left)
+    |> slide(:left)
     |> rotate_anticlockwise
   end
 
-  def move(board, :up) do
+  def slide(board, :up) do
     board
     |> rotate_anticlockwise
-    |> move(:left)
+    |> slide(:left)
     |> rotate_clockwise
   end
 
