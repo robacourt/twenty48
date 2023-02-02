@@ -5,24 +5,29 @@ defmodule Twenty48.Row do
   def space, do: @space
   def obstacle, do: @obstacle
 
-  def move_left(row), do: move_left(row, 0, [])
+  def move_left(row), do: move_left(row, [], [])
 
   defp move_left([@obstacle | tiles], spaces, acc) do
-    move_left(tiles, 0, [@obstacle | add_spaces(acc, spaces)])
+    move_left(tiles, [], [@obstacle | spaces ++ acc])
   end
 
-  defp move_left([@space | tiles], spaces, acc), do: move_left(tiles, spaces + 1, acc)
+  defp move_left([@space | tiles], spaces, acc) do
+    move_left(tiles, [@space | spaces], acc)
+  end
 
-  defp move_left([tile, @space | tiles], spaces, acc),
-    do: move_left([tile | tiles], spaces + 1, acc)
+  defp move_left([tile, @space | tiles], spaces, acc) do
+    move_left([tile | tiles], [@space | spaces], acc)
+  end
 
-  defp move_left([tile, tile | tiles], spaces, acc),
-    do: move_left(tiles, spaces + 1, [tile * 2 | acc])
+  defp move_left([tile, tile | tiles], spaces, acc) do
+    move_left(tiles, [@space | spaces], [tile * 2 | acc])
+  end
 
-  defp move_left([tile | tiles], spaces, acc), do: move_left(tiles, spaces, [tile | acc])
-  defp move_left([], spaces, acc), do: acc |> add_spaces(spaces) |> Enum.reverse()
+  defp move_left([tile | tiles], spaces, acc) do
+    move_left(tiles, spaces, [tile | acc])
+  end
 
-  defp add_spaces(tiles, spaces) do
-    List.duplicate(@space, spaces) ++ tiles
+  defp move_left([], spaces, acc) do
+    Enum.reverse(spaces ++ acc)
   end
 end
