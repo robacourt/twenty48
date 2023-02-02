@@ -3,7 +3,7 @@ defmodule Twenty48.RowTest do
   alias Twenty48.Row
 
   describe "slide_left" do
-    test "slides numbers left" do
+    test "moves numbers to the left past any spaces" do
       assert Row.slide_left([:_, 1]) == [1, :_]
       assert Row.slide_left([:_, 1, :_, 2]) == [1, 2, :_, :_]
       assert Row.slide_left([1, :_, :_, 2]) == [1, 2, :_, :_]
