@@ -1,5 +1,6 @@
 defmodule Twenty48.Board do
   alias Twenty48.Row
+
   @space Row.space()
 
   def slide(board, :left) do

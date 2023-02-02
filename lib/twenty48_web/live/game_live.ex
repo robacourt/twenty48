@@ -2,6 +2,7 @@ defmodule Twenty48Web.GameLive do
   use Twenty48Web, :live_view
 
   alias Twenty48.Game
+  alias Twenty48Web.Components
 
   @directions %{
     "ArrowUp" => :up,
@@ -16,64 +17,20 @@ defmodule Twenty48Web.GameLive do
     ~H"""
     <div class="game" phx-window-keyup="keyup">
       <div class="board-container">
-        <.status value={@game.status} />
-        <div class="board">
-          <%= for row <- @game.board do %>
-            <div class="board__row">
-              <%= for tile <- row do %>
-                <.tile value={tile} />
-              <% end %>
-            </div>
-          <% end %>
-        </div>
+        <Components.status value={@game.status} />
+        <Components.board value={@game.board} />
       </div>
     </div>
     """
   end
 
   def mount(_, _, socket) do
-    {:ok, assign(socket, game: Game.new())}
-  end
+    socket =
+      socket
+      |> assign(width: 6, height: 6, obstacles: 0)
+      |> new_game()
 
-  defp tile(%{value: number} = assigns) when is_integer(number) do
-    ~H"""
-    <div class={"tile--#{number}"}>
-      <%= number %>
-    </div>
-    """
-  end
-
-  defp tile(%{value: :_} = assigns) do
-    ~H"""
-    <div class="tile--empty">
-    </div>
-    """
-  end
-
-  defp status(%{value: :playing} = assigns) do
-    ~H"""
-    <div class="status--hide" />
-    """
-  end
-
-  defp status(%{value: :won} = assigns) do
-    ~H"""
-    <div class="status--show">
-      <div class="status__text">
-        YOU WIN!
-      </div>
-    </div>
-    """
-  end
-
-  defp status(%{value: :lost} = assigns) do
-    ~H"""
-    <div class="status--show">
-      <div class="status__text">
-        YOU LOSE!
-      </div>
-    </div>
-    """
+    {:ok, socket}
   end
 
   def handle_event("keyup", %{"key" => key}, socket) when key in @arrow_keys do
@@ -82,5 +39,16 @@ defmodule Twenty48Web.GameLive do
 
   def handle_event("keyup", %{"key" => _key}, socket) do
     {:noreply, socket}
+  end
+
+  defp new_game(%{assigns: assigns} = socket) do
+    assign(socket,
+      game:
+        Game.new(
+          assigns.width,
+          assigns.height,
+          obstacles: assigns.obstacles
+        )
+    )
   end
 end

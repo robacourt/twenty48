@@ -1,10 +1,14 @@
 defmodule Twenty48.Game do
   alias Twenty48.Board
-  @winning_number 2048
+  alias Twenty48.Row
 
-  def new(board_width \\ 6, board_height \\ 6) do
+  @winning_number 2048
+  @obstacle Row.obstacle()
+
+  def new(board_width \\ 6, board_height \\ 6, opts \\ []) do
     %{board: Board.create(board_width, board_height), status: :playing}
     |> add_piece(2)
+    |> add_pieces(@obstacle, opts[:obstacles] || 0)
   end
 
   def slide(%{board: board, status: :playing} = game, direction) do
@@ -32,4 +36,12 @@ defmodule Twenty48.Game do
   end
 
   defp add_piece(game, _), do: game
+
+  defp add_pieces(game, _, 0), do: game
+
+  defp add_pieces(game, piece, count) do
+    game
+    |> add_piece(piece)
+    |> add_pieces(piece, count - 1)
+  end
 end

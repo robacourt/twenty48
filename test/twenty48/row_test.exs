@@ -2,7 +2,7 @@ defmodule Twenty48.RowTest do
   use ExUnit.Case, async: true
   alias Twenty48.Row
 
-  describe "slide_left" do
+  describe "slide_left/1" do
     test "moves numbers to the left past any spaces" do
       assert Row.slide_left([:_, 1]) == [1, :_]
       assert Row.slide_left([:_, 1, :_, 2]) == [1, 2, :_, :_]

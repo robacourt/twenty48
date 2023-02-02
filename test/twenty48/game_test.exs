@@ -2,7 +2,7 @@ defmodule Twenty48.GameTest do
   use ExUnit.Case, async: true
   alias Twenty48.Game
 
-  describe "new" do
+  describe "new/3" do
     test "creates a game with a a status of playing" do
       assert Game.new().status == :playing
     end
@@ -39,9 +39,15 @@ defmodule Twenty48.GameTest do
     test "gives a status of lost if there is nowhere to place a piece" do
       assert Game.new(0, 0).status == :lost
     end
+
+    test "places the specified number of obstacles in random positions" do
+      seed_random()
+      assert Game.new(5, 1, obstacles: 1).board == [[2, :_, :_, :_, :x]]
+      assert Game.new(5, 1, obstacles: 2).board == [[2, :x, :x, :_, :_]]
+    end
   end
 
-  describe "slide" do
+  describe "slide/2" do
     test "slides the pieces the specified direction then adds a 1 in a random free position" do
       seed_random()
       game = %{board: [[:_, :_, 2]], status: :playing}
