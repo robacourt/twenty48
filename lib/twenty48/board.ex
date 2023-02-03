@@ -34,11 +34,11 @@ defmodule Twenty48.Board do
     end
   end
 
-  def add(board, {x, y}, number) do
+  def add(board, {x, y}, new_tile) do
     for {row, row_index} <- Enum.with_index(board) do
       for {tile, column_index} <- Enum.with_index(row) do
         if column_index == x && row_index == y do
-          number
+          new_tile
         else
           tile
         end
