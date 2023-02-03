@@ -9,23 +9,23 @@ defmodule Twenty48.Board do
 
   def slide(board, :right) do
     board
-    |> reverse_columns
+    |> reverse_columns()
     |> slide(:left)
-    |> reverse_columns
+    |> reverse_columns()
   end
 
   def slide(board, :down) do
     board
-    |> rotate_clockwise
+    |> rotate_clockwise()
     |> slide(:left)
-    |> rotate_anticlockwise
+    |> rotate_anticlockwise()
   end
 
   def slide(board, :up) do
     board
-    |> rotate_anticlockwise
+    |> rotate_anticlockwise()
     |> slide(:left)
-    |> rotate_clockwise
+    |> rotate_clockwise()
   end
 
   def free_spaces(board) do
@@ -62,19 +62,17 @@ defmodule Twenty48.Board do
 
   defp rotate_clockwise(board) do
     board
-    |> transpose
-    |> reverse_columns
+    |> swap_rows_with_columns()
+    |> reverse_columns()
   end
 
   defp rotate_anticlockwise(board) do
     board
-    |> transpose
-    |> reverse_rows
+    |> swap_rows_with_columns()
+    |> reverse_rows()
   end
 
-  defp transpose(rows) do
-    rows
-    |> List.zip()
-    |> Enum.map(&Tuple.to_list/1)
+  defp swap_rows_with_columns(rows) do
+    Enum.zip_with(rows, & &1)
   end
 end
